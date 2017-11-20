@@ -24,7 +24,7 @@ defmodule Budgeter do
   end
 
   defp parse_row([date, desc, amount]) do
-    [date, desc, String.to_float(amount) |> abs]
+    [date, desc, to_float(amount)]
   end
 
   defp sort(rows) do
@@ -41,6 +41,15 @@ defmodule Budgeter do
   end
 
   defp print_to_console([date, desc, amount]) do
-    IO.puts "\n#{date} - #{desc}: $#{:erlang.float_to_binary(amount, decimals: 2)}"
+    IO.puts "\n#{date} - #{desc}: $#{convert_to_dollar(amount)}"
+  end
+
+  defp to_float(amount) do
+    String.to_float(amount)
+    |> abs
+  end
+
+  defp convert_to_dollar(amount) do
+    :erlang.float_to_binary(amount, decimals: 2)
   end
 end

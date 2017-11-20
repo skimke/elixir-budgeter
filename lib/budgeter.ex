@@ -35,6 +35,7 @@ defmodule Budgeter do
     case sort_direction do
       :asc -> prev_row_amt < next_row_amt
       :desc -> prev_row_amt > next_row_amt
+      _ -> raise ArgumentError, message: "Invalid argument for sorting"
     end
   end
 

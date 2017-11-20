@@ -1,1 +1,4 @@
-%{"nimble_csv": {:hex, :nimble_csv, "0.4.0", "e2a21d93071cb3b3278411b5b49fe6b55a0e4b3e90485d1187e0c9c75c74f977", [], [], "hexpm"}}
+%{"decimal": {:hex, :decimal, "1.4.1", "ad9e501edf7322f122f7fc151cce7c2a0c9ada96f2b0155b8a09a795c2029770", [], [], "hexpm"},
+  "decimal_arithmetic": {:hex, :decimal_arithmetic, "0.1.1", "15f651ace567474d1d332f3cbf55e9203acb296a26591aa0f3fee346de4ff775", [], [{:decimal, "~> 1.1", [hex: :decimal, repo: "hexpm", optional: false]}], "hexpm"},
+  "nimble_csv": {:hex, :nimble_csv, "0.4.0", "e2a21d93071cb3b3278411b5b49fe6b55a0e4b3e90485d1187e0c9c75c74f977", [], [], "hexpm"},
+  "number": {:hex, :number, "0.5.4", "221ee2988dc3abaa3bd4dce43cbe603f20c8ca7343fc160769434fddd19c6fc0", [], [{:decimal, "~> 1.0", [hex: :decimal, repo: "hexpm", optional: false]}, {:decimal_arithmetic, "~> 0.1", [hex: :decimal_arithmetic, repo: "hexpm", optional: false]}], "hexpm"}}

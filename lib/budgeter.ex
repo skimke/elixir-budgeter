@@ -1,13 +1,14 @@
 defmodule Budgeter do
   alias NimbleCSV.RFC4180, as: CSV
+  import Number.Currency
 
-  def list_transactions(sort_direction \\ :asc) do
+  def list_transactions(sort_direction \\ :asc, currency \\ "$") do
     File.read!("lib/transactions.csv")
     |> parse
     |> filter
     |> normalize
     |> sort(sort_direction)
-    |> print
+    |> print(currency)
   end
 
   defp parse(string) do
@@ -39,13 +40,13 @@ defmodule Budgeter do
     end
   end
 
-  defp print(rows) do
+  defp print(rows, currency) do
     IO.puts "\nHere are your transactions:"
-    Enum.each(rows, &print_to_console(&1))
+    Enum.each(rows, &print_to_console(&1, currency))
   end
 
-  defp print_to_console([date, desc, amount]) do
-    IO.puts "\n#{date} - #{desc}: #{convert_to_dollar(amount)}"
+  defp print_to_console([date, desc, amount], currency) do
+    IO.puts "\n#{date} - #{desc}: #{convert_to_currency(amount, currency)}"
   end
 
   defp to_float(amount) do
@@ -53,7 +54,8 @@ defmodule Budgeter do
     |> abs
   end
 
-  defp convert_to_dollar(amount) do
-    "$" <> :erlang.float_to_binary(amount, decimals: 2)
+  defp convert_to_currency(amount, currency) do
+    # "$" <> :erlang.float_to_binary(amount, decimals: 2)
+    Number.Currency.number_to_currency(amount, unit: currency)
   end
 end

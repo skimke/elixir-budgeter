@@ -44,7 +44,7 @@ defmodule Budgeter do
   end
 
   defp print_to_console([date, desc, amount]) do
-    IO.puts "\n#{date} - #{desc}: $#{convert_to_dollar(amount)}"
+    IO.puts "\n#{date} - #{desc}: #{convert_to_dollar(amount)}"
   end
 
   defp to_float(amount) do
@@ -53,6 +53,6 @@ defmodule Budgeter do
   end
 
   defp convert_to_dollar(amount) do
-    :erlang.float_to_binary(amount, decimals: 2)
+    "$" <> :erlang.float_to_binary(amount, decimals: 2)
   end
 end

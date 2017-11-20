@@ -1,12 +1,12 @@
 defmodule Budgeter do
   alias NimbleCSV.RFC4180, as: CSV
 
-  def list_transactions do
+  def list_transactions(sort_direction \\ :asc) do
     File.read!("lib/transactions.csv")
     |> parse
     |> filter
     |> normalize
-    |> sort
+    |> sort(sort_direction)
     |> print
   end
 
@@ -27,12 +27,15 @@ defmodule Budgeter do
     [date, desc, to_float(amount)]
   end
 
-  defp sort(rows) do
-    Enum.sort(rows, &sort_asc_by_amount(&1, &2))
+  defp sort(rows, sort_direction) do
+    Enum.sort(rows, &sort_by_amount(&1, &2, sort_direction))
   end
 
-  defp sort_asc_by_amount([_, _, prev_row_amt], [_, _, next_row_amt]) do
-    prev_row_amt < next_row_amt
+  defp sort_by_amount([_, _, prev_row_amt], [_, _, next_row_amt], sort_direction) do
+    case sort_direction do
+      :asc -> prev_row_amt < next_row_amt
+      :desc -> prev_row_amt > next_row_amt
+    end
   end
 
   defp print(rows) do
